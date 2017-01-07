@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   end
 
   after_save do
-    ApiKey.create(user: self)
+    self.api_key.save unless api_key.present?
   end
 
   def admin?
