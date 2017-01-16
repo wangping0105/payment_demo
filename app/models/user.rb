@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
   # has_secure_password
   has_one :api_key
   has_one :attachment, as: :attachmentable
-  has_many :users
   has_many :orders
   has_many :order_pays
   has_one :user_account

@@ -2,6 +2,13 @@ zh-CN:
   activerecord:
     models:
       order: '订单信息'
+    attributes:
+      order:
+        id: "ID"
+        no: '订单编号'
+        origin_price: '原价'
+        discount: '折扣'
+        price: '价格'
   enum:
     order:
       status:

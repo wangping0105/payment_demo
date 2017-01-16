@@ -1,0 +1,15 @@
+zh-CN:
+  activerecord:
+    models:
+      user: '用户信息'
+    attributes:
+      user:
+        id: "ID"
+        name: '用户名'
+        surname: '姓氏'
+        phone: '手机'
+        role: '角色'
+        email: '邮箱'
+        current_sign_in_at: '当前登录于'
+        last_sign_in_at: '最后一次登录于'
+        current_sign_in_ip: '当前登录ip'

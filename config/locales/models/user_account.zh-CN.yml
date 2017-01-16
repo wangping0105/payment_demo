@@ -1,0 +1,12 @@
+zh-CN:
+  activerecord:
+    models:
+      user_account: '用户钱包'
+    attributes:
+      user_account:
+        id: "ID"
+        amount: '余额'
+        frozen_amount: '冻结余额'
+        total_amount: '总资产'
+  enum:
+    user_account:
