@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    if role == 'super_admin'
+    if role == 'admin'
       return true
     end
     false
