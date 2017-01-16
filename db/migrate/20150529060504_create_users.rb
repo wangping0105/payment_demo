@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :phone, comment: '手机', index: true
       t.string :email, default: "", index: true, comment: '邮箱'
       t.string :name, comment: '用户名', after: :phone
+      t.string :surname, comment: '姓', after: :name
       t.string :name_pinyin
 
       t.string :authentication_token, index: true

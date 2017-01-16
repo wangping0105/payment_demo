@@ -1,6 +1,8 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
+  layout 'sessions'
+  skip_before_action :authenticate_user!
 
   # GET /resource/sign_up
   def new
@@ -12,8 +14,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new(user_params)
 
     if @user.save
-      flash[:success] = '创建成功'
-      redirect_to root_path
+      flash[:success] = '确认链接已经发送至您的邮箱,请前往确认!'
+      redirect_to new_user_session_path
     else
       flash[:error] = "创建失败,#{@user.errors.full_messages}"
       render "new"

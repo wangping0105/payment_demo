@@ -1,0 +1,37 @@
+<div class="container">
+  <%if flash.present? %>
+    <div class="container-header">
+      <h1 class="blog-title">订单<%= @order.no %></h1>
+      <p class="lead blog-description"><%= flash[:success] || flash[:error]  %></p>
+    </div>
+    <div class="row">
+      <div class="container">
+        <div id="tab" class="row">
+          <div class="col-md-12 bg-f8f8f8">
+            <div class="col-md-12">
+              <hr>
+              <%= link_to "订单详情", order_path(@order) %>
+            </div>
+            <div class="col-md-12">
+              <hr>
+              您的账户余额(<%= t("money") %>): <%= current_user.user_account.amount.to_f %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%else %>
+    <div class="row">
+      <div class="container">
+        <div id="tab" class="row">
+          <div class="col-md-12 bg-f8f8f8">
+            <div class="col-md-12">
+              <hr>
+              当前页面已经失效!<%= link_to "返回首页", "/" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%end %>
+</div>

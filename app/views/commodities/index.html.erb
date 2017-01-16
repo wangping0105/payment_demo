@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="container-header">
+    <h1 class="blog-title">欢迎来到OnlinePay</h1>
+    <p class="lead blog-description">祝您购物愉快!</p>
+  </div>
+  <div class="row">
+    <div class="container">
+      <div id="tab" class="row">
+        <% @commodities.each do |commodity|  %>
+          <div class="col-md-4 h-280 bg-f8f8f8">
+            <h4><a href="<%= commodity_path(commodity) %>"><%= commodity.name %>(<%= t("money") %><%=  commodity.price %>)</a></h4>
+            <div class="h-180">
+              <span class="f-left">
+                <a href="<%= commodity_path(commodity) %>"><%= image_tag commodity.first_image_url, class: "w-120 h-120" %></a>
+              </span>
+              <span>
+                <a href="<%= commodity_path(commodity) %>"><%= deal_string(commodity.introduction, 75)%></a>
+              </span>
+            </div>
+            <p><a class="btn btn-default" href="<%= new_order_path(commodity_id: commodity) %>" role="button">立即购买 »</a></p>
+          </div>
+        <%end %>
+        <%if @commodities.blank? %>
+          <div class="col-md-12">
+            <h3>暂无商品</h3>
+          </div>
+        <%end %>
+      </div>
+    </div>
+  </div>
+</div>

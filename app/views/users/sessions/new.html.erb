@@ -20,7 +20,7 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit" id="login">登录</button>
       </div>
       <div class="col-md-6">
-        <%=link_to '注册', "", class:'btn btn-lg btn-primary btn-block'%>
+        <%=link_to '注册', "/users/sign_up", class:'btn btn-lg btn-primary btn-block'%>
       </div>
     <%end %>
   </div>
@@ -52,8 +52,9 @@
               handleMessage(data.msg)
             }
           },
-          error: function(){
-            handleMessage("请求失败!")
+          error: function(e){
+            console.log(e)
+            handleMessage(e.responseJSON.error)
           },
           complete: function(){
             submit.removeAttr("disabled")

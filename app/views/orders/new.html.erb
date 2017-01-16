@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="container-header">
+    <h1 class="blog-title">生成订单</h1>
+    <p class="lead blog-description"></p>
+  </div>
+  <div class="row">
+    <div class="container">
+      <div id="tab" class="row">
+        <div class="col-md-12 bg-f8f8f8">
+          <div class="col-md-12">
+            <hr>
+            <div class="table-responsive">
+              <%= form_for Order.new do %>
+                <!--class= table-striped 无边框 table-bordered 有边框-->
+                <table class="table table-striped">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>商品名</th>
+                    <th>商品单价(<%= t("money") %>)</th>
+                    <th>数量</th>
+                    <th>商品总价(<%= t("money") %>)</th>
+                    <th>操作</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>
+                      <%= hidden_field_tag :commodity_id, @commodity.id%>
+                      <%= hidden_field_tag :price, @commodity.price.to_f%>
+                    </td>
+                    <td><%= @commodity.name %></td>
+                    <td><%= @commodity.price %></td>
+                    <td><%= text_field_tag :count, 1 %></td>
+                    <td><%= @commodity.price  %></td>
+                    <td>
+                      <button class="btn btn-default">立即付款 »</button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              <%end %>
+            </div>
+          </div>
+          <div>
+            <span>
+              <%= @commodity.introduction%>
+            </span>
+          </div>
+          <div>
+            <span >
+               <%= image_tag @commodity.first_image_url %>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#count").on("input", function(){
+    if($(this).val() == "")
+      $(this).val(1)
+    _count = parseFloat($(this).val())
+    _price = parseFloat($(this).parent().prev().text())
+
+    $(this).parent().next().text( _count * _price)
+    })
+</script>

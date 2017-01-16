@@ -1,0 +1,12 @@
+zh-CN:
+  activerecord:
+    models:
+      order: '订单信息'
+  enum:
+    order:
+      status:
+        paying: "待付款"
+        paid: "已经付款"
+        failed: "付款失败"
+        refund: "付款成功"
+        cancel: "订单取消"

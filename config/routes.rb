@@ -5,13 +5,24 @@ class ActionDispatch::Routing::Mapper
 end
 
 Rails.application.routes.draw do
+
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   draw :api
   devise_for :users, controllers: {
      sessions: 'users/sessions',
-     registrations: 'users/registrations'
+     registrations: 'users/registrations',
+     confirmations: 'users/confirmations'
    }
-   root "home#index"
+   root "commodities#index"
 
-   resource :home
+  resources :home
+  resources :commodities
+  resources :users
+  resources :orders do
+    member do
+      get :pay_result
+      put :pay
+    end
+  end
 end

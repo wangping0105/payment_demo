@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="container-header">
+    <h1 class="blog-title">订单详情(<%= @order.status_mapped %>)</h1>
+    <p class="lead blog-description"></p>
+  </div>
+  <div class="row">
+    <div class="container">
+      <div id="tab" class="row">
+        <div class="col-md-12 bg-f8f8f8">
+
+          <div class="col-md-12">
+            <hr>
+            您的账户余额(<%= t("money") %>): <f class='amount' ><%= current_user.user_account.amount.to_f %></f>
+          </div>
+
+          <div class="col-md-12">
+            <hr>
+            商品总价格(<%= t("money") %>): <f class='amount' ><%= @order.price %></f>
+          </div>
+
+          <% if @order.status.in? %w(paying failed) %>
+            <div class="col-md-12">
+              <hr>
+              <%= form_for @order, method: :put, url: pay_order_path(@order) do %>
+              <%= button_tag '确认付款 »', class: "btn btn-primary" %>
+              <%end %>
+            </div>
+          <% end %>
+          <div class="col-md-12">
+            <hr>
+            其他付款方式: 目前只支持账户余额!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161208085613) do
+ActiveRecord::Schema.define(version: 20170114083806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,13 @@ ActiveRecord::Schema.define(version: 20161208085613) do
     t.index ["user_id"], name: "index_attachments_on_user_id", using: :btree
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "commodities_count", default: 0
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
   create_table "cities", force: :cascade do |t|
     t.string   "name"
     t.string   "pinyin"
@@ -87,6 +94,20 @@ ActiveRecord::Schema.define(version: 20161208085613) do
     t.index ["name"], name: "index_cities_on_name", using: :btree
     t.index ["pinyin"], name: "index_cities_on_pinyin", using: :btree
     t.index ["province_id"], name: "index_cities_on_province_id", using: :btree
+  end
+
+  create_table "commodities", force: :cascade do |t|
+    t.string   "name"
+    t.string   "no"
+    t.string   "introduction"
+    t.float    "price"
+    t.integer  "category_id"
+    t.integer  "stock",                                 comment: "库存"
+    t.integer  "status",       default: 0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["category_id"], name: "index_commodities_on_category_id", using: :btree
+    t.index ["status"], name: "index_commodities_on_status", using: :btree
   end
 
   create_table "countries", force: :cascade do |t|
@@ -109,6 +130,33 @@ ActiveRecord::Schema.define(version: 20161208085613) do
     t.index ["city_id"], name: "index_districts_on_city_id", using: :btree
     t.index ["name"], name: "index_districts_on_name", using: :btree
     t.index ["pinyin"], name: "index_districts_on_pinyin", using: :btree
+  end
+
+  create_table "order_pays", force: :cascade do |t|
+    t.string   "no"
+    t.integer  "order_id"
+    t.integer  "category"
+    t.integer  "user_id"
+    t.integer  "status",     default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["order_id"], name: "index_order_pays_on_order_id", using: :btree
+    t.index ["status"], name: "index_order_pays_on_status", using: :btree
+    t.index ["user_id"], name: "index_order_pays_on_user_id", using: :btree
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string   "no"
+    t.integer  "commodity_id"
+    t.float    "origin_price"
+    t.float    "discount"
+    t.float    "price"
+    t.integer  "user_id"
+    t.integer  "status"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["commodity_id"], name: "index_orders_on_commodity_id", using: :btree
+    t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
   create_table "provinces", force: :cascade do |t|
@@ -135,6 +183,17 @@ ActiveRecord::Schema.define(version: 20161208085613) do
     t.index ["users_id"], name: "index_sms_codes_on_users_id", using: :btree
   end
 
+  create_table "user_accounts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.float    "amount",        default: 0.0
+    t.float    "total_amount",  default: 0.0
+    t.float    "frozen_amount", default: 0.0
+    t.integer  "status",        default: 0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["user_id"], name: "index_user_accounts_on_user_id", using: :btree
+  end
+
   create_table "user_devices", force: :cascade do |t|
     t.string   "uid"
     t.string   "device_token"
@@ -151,6 +210,7 @@ ActiveRecord::Schema.define(version: 20161208085613) do
     t.string   "phone",                                            comment: "手机"
     t.string   "email",                  default: "",              comment: "邮箱"
     t.string   "name",                                             comment: "用户名"
+    t.string   "surname",                                          comment: "姓"
     t.string   "name_pinyin"
     t.string   "authentication_token"
     t.datetime "activated"

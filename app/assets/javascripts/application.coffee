@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #= require jquery
 #= require jquery_ujs
+#= require bootstrap/js/bootstrap.min
 #= require jquery.validate
 #= require jquery.validate.additional-methods
 #= require jquery.validate.localization/messages_zh

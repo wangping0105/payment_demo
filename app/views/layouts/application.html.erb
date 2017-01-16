@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>DemoNews</title>
+  <title>DemoPayments</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <% if content_for?(:js_in_header)%>
-    <%= yield(:js_in_head) %>
+  <% if content_for?(:content_in_header)%>
+    <%= yield(:content_in_head) %>
   <%end %>
 </head>
 <body>
-<%= link_to '退出', destroy_user_session_path, method: :delete %>
+<%= render 'shared/navbar' %>
 <%= render 'shared/flash_area' %>
 <%= yield %>
 <% if content_for?(:js_in_footer)%>

@@ -18,7 +18,6 @@ class Users::SessionsController < Devise::SessionsController
     else
       data = {code: -1, msg: "账户密码不正确，请重试!"}
     end
-
     render json: data
   end
 
