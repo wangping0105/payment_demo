@@ -8,13 +8,13 @@
       <div id="tab" class="row">
         <% @commodities.each do |commodity|  %>
           <div class="col-md-4 h-280 bg-f8f8f8">
-            <h4><a href="<%= commodity_path(commodity) %>"><%= commodity.name %>(<%= t("money") %><%=  commodity.price %>)</a></h4>
+            <h4><a href="<%= new_order_path(commodity_id: commodity) %>"><%= commodity.name %>(<%= t("money") %><%=  commodity.price %>)</a></h4>
             <div class="h-180">
               <span class="f-left">
-                <a href="<%= commodity_path(commodity) %>"><%= image_tag commodity.first_image_url, class: "w-120 h-120" %></a>
+                <a href="<%= new_order_path(commodity_id: commodity) %>"><%= image_tag commodity.first_image_url, class: "w-120 h-120" %></a>
               </span>
               <span>
-                <a href="<%= commodity_path(commodity) %>"><%= deal_string(commodity.introduction, 75)%></a>
+                <a href="<%= new_order_path(commodity_id: commodity)%>"><%= deal_string(commodity.introduction, 75)%></a>
               </span>
             </div>
             <p><a class="btn btn-default" href="<%= new_order_path(commodity_id: commodity) %>" role="button">立即购买 »</a></p>
