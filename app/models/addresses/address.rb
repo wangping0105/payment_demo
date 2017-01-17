@@ -1,12 +1,13 @@
 class Address < ActiveRecord::Base
+  belongs_to :addressable, polymorphic: true
+  has_one :country
+  has_one :province
+  has_one :city
+  has_one :district
+
   extend Geocoder::Model::ActiveRecord unless defined? Rails::Railtie
   geocoded_by :detail_address, :latitude  => :lat, :longitude => :lng
 
-  belongs_to :addressable, polymorphic: true
-  # belongs_to :country
-  # belongs_to :province
-  # belongs_to :city
-  # belongs_to :district
 
   enum sub_type: {default: 1, nomal: 0}
   GAODE_KEY = '3760f57b71e2a01d43645f2a00940567'

@@ -1,5 +1,5 @@
 class Api::V1::VersionsController < Api::V1::BaseController
-  skip_before_action :authenticate!
+  skip_before_action :authenticate!, :authenticate_app!
 
   def lastest_version
     param! :device, String, required: true, in: ['android', 'ios']
@@ -10,7 +10,7 @@ class Api::V1::VersionsController < Api::V1::BaseController
     response.headers['Access-Control-Allow-Origin'] = '*' #跨域问题
     render json: {
       code: 0,
-      data: AppVersionSerializer.new(app_version)
+      data: app_version.as_json
     }
   end
 
@@ -18,7 +18,7 @@ class Api::V1::VersionsController < Api::V1::BaseController
   def init_version
     AppVersion.create(
         app_type: AppVersion::app_types[params[:device]],
-        name: 'chekoubei',
+        name: 'OnlinePay',
         version_name: '1.0.0',
         version_code: '1.0.0'
     )

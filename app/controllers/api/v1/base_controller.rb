@@ -1,4 +1,4 @@
-class Api::V1::BaseController < ActionController::Base
+class Api::V1::BaseController < ActionController::API
   include Api::Rescueable
   include Api::Authenticateable
   include Api::DeviceDetectable
