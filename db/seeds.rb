@@ -8,6 +8,9 @@
 
 current_user = User.create(name: :admin, email: "qq@qq.com", password: "111111", phone: "18000000000", role: 1, confirmed_at: Time.now)
 current_user.user_account = UserAccount.new(user: current_user )
+current_user.save
+current_user.addresses.create(detail_address: "上海市宝山区高境一村")
+
 category = Category.create(name: '默认分类')
 file = File.new("/home/jackping/rails_projects/payment_demo/app/assets/images/demo_product.jpg")
 demo_prods = [

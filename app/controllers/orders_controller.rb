@@ -25,18 +25,23 @@ class OrdersController < ApplicationController
   end
 
   def pay
-    @order.status = Order.statuses[:paid]
     @account = current_user.user_account
     _new_account = @account.amount - @order.price
-    if _new_account >= 0 && @order.save
-      flash[:success] = "支付成功!"
-      @account.amount= _new_account
-      @account.save
-      redirect_to pay_result_order_path(@order, flag: true)
-    else
-      flash[:error] = "支付失败#{",余额不足!" if _new_account < 0}"
-      redirect_to pay_result_order_path(@order, flag: true)
+    Order.transaction do
+      if _new_account >= 0
+        flash[:success] = "支付成功!"
+        @order.status = Order.statuses[:paid]
+        @account.amount= _new_account
+        @order.save
+        @account.save
+      else
+        flash[:error] = "支付失败, 余额不足!"
+        @order.status = Order.statuses[:failed]
+        @order.save
+      end
     end
+
+    redirect_to pay_result_order_path(@order)
   end
 
   def pay_result

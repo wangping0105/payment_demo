@@ -25,15 +25,17 @@ ActiveRecord::Schema.define(version: 20170114083806) do
     t.integer  "city_id"
     t.integer  "district_id"
     t.string   "detail_address"
+    t.integer  "sub_type",         default: 0
     t.integer  "address_type",     default: 0
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
-    t.index ["addressable_id"], name: "index_addresses_on_addressable_id", using: :btree
+    t.index ["addressable_id", "addressable_type"], name: "index_addresses_on_addressable_id_and_addressable_type", using: :btree
     t.index ["city_id"], name: "index_addresses_on_city_id", using: :btree
     t.index ["country_id"], name: "index_addresses_on_country_id", using: :btree
     t.index ["district_id"], name: "index_addresses_on_district_id", using: :btree
     t.index ["lat", "lng"], name: "index_addresses_on_lat_and_lng", using: :btree
     t.index ["province_id"], name: "index_addresses_on_province_id", using: :btree
+    t.index ["sub_type"], name: "index_addresses_on_sub_type", using: :btree
   end
 
   create_table "api_keys", force: :cascade do |t|

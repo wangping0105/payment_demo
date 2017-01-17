@@ -44,6 +44,8 @@ gem 'paperclip', '~> 4.3.1'
 # Use jquery as the JavaScript library
 gem 'jquery-validation-rails', '~> 1.16.0'
 
+gem 'geocoder', '~> 1.2.12'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

@@ -1,13 +1,7 @@
 class UsersController < ApplicationController
-  before_action :validate_admin, only: [:index, :destroy]
-  DEFAULT_PASSWORD = "111111"
+  before_action :set_user, only: [:update, :edit, :show]
 
   def index
-    @users = User.page(params[:page]).per(params[:per_page])
-    if params[:query].present?
-      @users = @users.like_any_fields(params[:query], :username, :truename)
-    end
-    @all_phones =all_phones
   end
 
   def new
@@ -15,25 +9,40 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
-    render 'new'
+    render 'show'
+  end
+
+  def update
+    _user_params = user_params.reject{|k, v| v.blank?}
+    @user.assign_attributes(_user_params)
+    if @user.save
+      render json: {code: 0, msg: '更新成功'}
+    else
+      render json: {code: -1, msg: "更新失败,#{@user.errors.full_messages.join(",")}"}
+    end
+
   end
 
   def show
     @user ||= current_user
-    render 'new'
   end
 
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-    flash[:success] = "删除成功！"
-    redirect_to users_path(page: params[:page])
+    # @user = User.find(params[:id])
+    # @user.destroy
+    # flash[:success] = "删除成功！"
+    # redirect_to users_path(page: params[:page])
   end
-
 
   private
   def user_params
-    params.require(:user).permit(:phone, :password, :email, :name, :truename, :surname)
+    params.require(:user).permit(
+      :phone, :password, :email, :name, :surname,
+      addresses_attributes: [:id, :detail_address, :_destroy]
+    )
+  end
+
+  def set_user
+    @user = User.find(params[:id])
   end
 end

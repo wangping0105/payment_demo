@@ -12,11 +12,16 @@
             <hr>
             您的账户余额(<%= t("money") %>): <f class='amount' ><%= current_user.user_account.amount.to_f %></f>
           </div>
+          <div class="col-md-12">
+            <hr>
+            收货地址: <%= current_user.default_address %>
+          </div>
 
           <div class="col-md-12">
             <hr>
             商品总价格(<%= t("money") %>): <f class='amount' ><%= @order.price %></f>
           </div>
+
 
           <% if @order.status.in? %w(paying failed) %>
             <div class="col-md-12">

@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  # name: 可选只用这一个
+  # surname: 姓氏 一般情况用不到
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -8,11 +11,12 @@ class User < ActiveRecord::Base
   # has_secure_password
   has_one :api_key
   has_one :attachment, as: :attachmentable
+  has_many :addresses, as: :addressable
+  accepts_nested_attributes_for :addresses, allow_destroy: true #update_only: true,
   has_many :orders
   has_many :order_pays
   has_one :user_account
 
-  validates_presence_of :password, :message => "密码不能为空!"
   validates_uniqueness_of :email, conditions: -> { paranoia_scope }, :message => "邮箱已经存在!"
   # validates_uniqueness_of :phone, conditions: -> { paranoia_scope }
   validates_presence_of :email, :message => "邮箱不能为空!"
@@ -34,5 +38,9 @@ class User < ActiveRecord::Base
       return true
     end
     false
+  end
+
+  def default_address
+    addresses.default.try(:detail_address) || addresses.first.try(:detail_address)
   end
 end

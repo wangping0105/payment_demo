@@ -1,0 +1,23 @@
+zh-CN:
+  activerecord:
+    models:
+      address: "地址信息"
+    attributes:
+      address:
+        id: "ID"
+        offical_tel: "工作电话"
+        country: "国家"
+        url: "网址"
+        tel: "电话"
+        province: "省"
+        city: "市"
+        district: "县"
+        phone: "手机"
+        email: "邮箱"
+        house_tel: "家庭电话"
+        qq: "QQ"
+        fax: "传真"
+        wechat: "微信"
+        zip: "邮编"
+        wangwang: "旺旺"
+        detail_address: "详细地址"
