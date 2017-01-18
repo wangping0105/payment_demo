@@ -1,0 +1,6 @@
+zh-CN:
+  payment_core:
+    error_msg:
+      pay_0: "支付失败, 支付成功!"
+      pay_1: "支付失败, 未知错误"
+      pay_10000: "支付失败, 余额不足!"

@@ -14,6 +14,7 @@ class OrdersController < ApplicationController
     _no = "D#{Time.now.to_i}#{current_user.id}#{SecureRandom.random_number(0..999999).to_s.rjust(6, '0')}"
     @order = current_user.orders.build(origin_price: _total_price, commodity: @commodity, no: _no)
     if @order.save
+      flash[:success] = "订单创建成功!"
       redirect_to order_path(@order)
     else
       render 'new'
@@ -26,19 +27,16 @@ class OrdersController < ApplicationController
 
   def pay
     @account = current_user.user_account
-    _new_account = @account.amount - @order.price
     Order.transaction do
-      if _new_account >= 0
-        flash[:success] = "支付成功!"
+      payment_code, message = PaymentCore.pay_money(amount: @order.price, user_acccount_id: @account.id)
+      if PaymentCore.is_pay_success?(payment_code)
+        flash[:success] = message
         @order.status = Order.statuses[:paid]
-        @account.amount= _new_account
-        @order.save
-        @account.save
       else
-        flash[:error] = "支付失败, 余额不足!"
+        flash[:error] = message
         @order.status = Order.statuses[:failed]
-        @order.save
       end
+      @order.save
     end
 
     redirect_to pay_result_order_path(@order)

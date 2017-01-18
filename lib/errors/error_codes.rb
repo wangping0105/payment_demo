@@ -20,4 +20,8 @@ module ErrorCodes
   FAIL_SMS = 300000 # 短信发送失败
 
   ENTITY_VALIDATION = 400100 # 对象校验错误
+
+  PAYMENT_SUCCESS = :pay_0
+  PAYMENT_FAILS = :pay_1
+  PAYMENT_INSUFFICIENT_FUNDS = :pay_10000
 end

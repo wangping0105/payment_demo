@@ -8,10 +8,10 @@
       <div id="tab" class="row">
         <div class="col-md-12 bg-f8f8f8">
 
-          <div class="col-md-12">
-            <hr>
-            您的账户余额(<%= t("money") %>): <f class='amount' ><%= current_user.user_account.amount.to_f %></f>
-          </div>
+          <!--<div class="col-md-12">-->
+            <!--<hr>-->
+            <!--您的账户余额(<%= t("money") %>): <f class='amount' ><%= current_user.user_account.amount.to_f %></f>-->
+          <!--</div>-->
           <div class="col-md-12">
             <hr>
             收货地址: <%= current_user.default_address %>
@@ -32,7 +32,7 @@
           <% end %>
           <div class="col-md-12">
             <hr>
-            其他付款方式: 目前只支持账户余额!
+            付款方式[pay style]: 账户余额(<%= current_user.user_account.amount.to_f %>)  目前只支持账户余额
           </div>
         </div>
       </div>

@@ -1,5 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "commodities/index.html.erb", type: :view do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "displays product details correctly" do
+    assign(:commodities, Commodity.all)
+    render
+
+    expect(rendered).to include('洗发露(中)')
+    expect(rendered).to include('188')
+  end
 end
