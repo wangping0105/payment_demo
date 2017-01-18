@@ -10,6 +10,8 @@ require 'rspec/rails'
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -32,17 +34,11 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   # config.infer_spec_type_from_file_location!
-
   config.before(:suite) do
-
     DatabaseCleaner.strategy = :transaction
 
-    # DatabaseCleaner.clean_with(:truncation)
-    # Permission.load_permissions
-    # ik_org = FactoryGirl.create(:ik_organization)
-    # ik_org.setup
-    DatabaseCleaner.clean_with(:truncation)
-
+    #数据库清理
+    DatabaseCleaner.clean_with(:truncation, except: %w(users user_accounts addresses commodities attachments categories ))
   end
 
   config.around(:each) do |example|

@@ -164,8 +164,8 @@ ActiveRecord::Schema.define(version: 20170114083806) do
   create_table "provinces", force: :cascade do |t|
     t.string   "name"
     t.string   "pinyin"
-    t.integer  "sort"
     t.integer  "country_id"
+    t.integer  "sort"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["country_id"], name: "index_provinces_on_country_id", using: :btree

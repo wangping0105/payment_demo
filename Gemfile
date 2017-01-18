@@ -49,14 +49,12 @@ gem 'geocoder', '~> 1.2.12'
 gem 'rails_param'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
-end
-
-group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'byebug', platform: :mri
   gem 'listen', '~> 3.0.5'
   gem 'rspec-rails', '~> 3.5.0'
+  gem 'database_cleaner'
+  gem "factory_girl_rails", "~> 4.0"
   gem 'guard'
   gem 'guard-rspec'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

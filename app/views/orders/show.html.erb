@@ -22,7 +22,6 @@
             商品总价格(<%= t("money") %>): <f class='amount' ><%= @order.price %></f>
           </div>
 
-
           <% if @order.status.in? %w(paying failed) %>
             <div class="col-md-12">
               <hr>

@@ -3,8 +3,8 @@ class CreateProvinces < ActiveRecord::Migration
     create_table :provinces do |t|
       t.string :name
       t.string :pinyin
-      t.integer :sort
       t.integer :country_id, index: true
+      t.integer :sort
 
       t.timestamps
     end
